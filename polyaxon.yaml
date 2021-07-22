@@ -1,0 +1,64 @@
+---
+version: 1
+
+kind: group
+
+framework: pytorch
+
+tags: [context_encoder]
+
+build:
+  image: pytorch/pytorch:1.4-cuda10.1-cudnn7-runtime
+  build_steps:
+    - apt-get update -y
+    - apt-get install -y libglib2.0-dev libsm6 libxext6 libxrender-dev
+    - pip install -r requirements.txt
+
+environment:
+  resources:
+    cpu:
+      requests: 4
+      limits: 4
+    memory:
+      requests: 4096
+      limits: 15360
+    gpu:
+      requests: 1
+      limits: 1
+
+
+declarations:
+  dataset: 'cifar10' # or other datasets
+  lr: 0.0002
+  beta1: 0.5
+  beta2: 0.999
+  w_rec: 0.999
+  batch_size: 64
+  epochs: 50
+  overlap: 0
+  device: 'cuda'
+  out_dir: 'context_encoder'
+  bottleneck: 4000
+  image_size: 32
+  mask_area: 0.25
+
+
+run:
+  cmd: python -u main.py \
+    --random-masking \
+    --mask-area={{ mask_area }} \
+    --bottleneck={{ bottleneck }} \
+    --image-size={{ image_size }} \
+    --w-rec={{ w_rec }} \
+    --overlap={{ overlap }} \
+    --batch-size={{ batch_size }} \
+    --epochs={{ epochs }} \
+    --lr={{ lr }} \
+    --device={{ device }} \
+    --dataset={{ dataset }} \
+    --out-dir={{ out_dir }} \
+    --random-seed \
+    --polyaxon \
+    --save \
+    --use-ema
+
