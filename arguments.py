@@ -15,14 +15,14 @@ def parse_args():
     # General arguments
     parser.add_argument(
         "--device",
-        default="cpu",
+        default="cuda",
         type=str,
         choices=["cpu", "cuda"],
         help="Device used for training",
     )
     parser.add_argument(
         "--num-workers",
-        default=4,
+        default=0,
         type=int,
         help="Number of workers used for data loading",
     )
@@ -57,16 +57,15 @@ def parse_args():
         type=str,
         help="path to checkpoint from which to resume training",
     )
-    parser.add_argument("--epochs", default=1024, type=int, help="number of epochs")
+    parser.add_argument("--epochs", default=50, type=int, help="number of epochs")
     parser.add_argument(
         "--iters-per-epoch",
         default=1024,
         type=int,
         help="number of iterations per epoch",
     )
-    parser.add_argument("--batch-size", default=16, type=int, help="batch_size")
-    parser.add_argument("--lr", default=0.03, type=float, help="initial learning rate")
-    parser.add_argument("--wd", default=0.0005, type=float, help="weight decay")
+    parser.add_argument("--batch-size", default=64, type=int, help="batch_size")
+    parser.add_argument("--lr", default=0.0002, type=float, help="initial learning rate")
     parser.add_argument(
         "--ema-decay",
         default=0.999,
@@ -77,12 +76,6 @@ def parse_args():
         "--pin-memory",
         action="store_true",
         help="Should CPU tensors be directly allocated in Pinned memory for data loading",
-    )
-    parser.add_argument(
-        "--initial-size",
-        type=int,
-        default=500,
-        help="Number of initially labeled samples",
     )
     parser.add_argument(
         "--checkpoint-interval",
@@ -169,13 +162,13 @@ def parse_args():
     parser.add_argument(
         "--bottleneck",
         type=int,
-        default=2048,
+        default=4000,
         help="dimension of bottleneck layer of context generator",
     )
     parser.add_argument(
         "--image-size",
         type=int,
-        default=128,
+        default=32,
         choices=[32, 64, 128],
         help="size of input images",
     )
@@ -183,7 +176,7 @@ def parse_args():
         "--w-rec", type=float, default=0.999, help="weight of reconstruction error"
     )
     parser.add_argument(
-        "--beta1", type=float, default=0.9, help="beta1 of adam optimizer"
+        "--beta1", type=float, default=0.5, help="beta1 of adam optimizer"
     )
     parser.add_argument(
         "--beta2", type=float, default=0.999, help="beta2 of adam optimzer"

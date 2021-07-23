@@ -27,7 +27,28 @@ Context encoder training is started by running the following command:
 python main.py
 ```
 All commandline arguments, which can be used to adapt the configuration of the context encoder are defined and described in `arguments.py`.
-
+By default the following configuration is run:
+```
+dataset: 'cifar10'
+epochs: 50
+batch_size: 64
+lr: 0.0002
+beta1: 0.5
+beta2: 0.999
+w_rec: 0.999
+overlap: 0
+bottleneck: 4000
+image_size: 32
+mask_area: 0.25
+device: 'cuda'
+out_dir: 'context_encoder'
+```
+In addition to these, the following arguments can be used to further configure the context encoder training process:
+* `--device <cuda / cpu>`: Specify whether training should be run on GPU (if available) or CPU
+* `--num-workers <num_workers>`: Number of workers used by torch dataloader
+* `--resume <path to run_folder>`: Resumes training of training run saved at specified path, e.g. `'out/context_encoder_training/run_0'`. Dataset splits, model state, optimizer state, etc.
+  are loaded and training is resumed with specified arguments.
+* see `arguments.py` for more
 
 Alternatively, the `polyaxon.yaml`-file can be used to start the context encoder training on a polyaxon-cluster:
 ```
