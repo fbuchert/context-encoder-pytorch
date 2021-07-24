@@ -57,7 +57,7 @@ def get_optimizer(args, model):
     args: argparse.Namespace
         Namespace that contains all command line arguments with their corresponding values.
     model: torch.nn.Module
-        torch module which is trained using MixMatch.
+        torch module which is trained using the optmizer / context encoder training process.
     Returns
     -------
     optim: torch.optim.Optimizer
@@ -192,10 +192,9 @@ def train_epoch(
     args: argparse.Namespace
         Namespace with command line arguments and corresponding values
     generator: torch.nn.Module
-        Model, i.e. neural network to train using MixMatch.
+        Generator model.
     discriminator: torch.nn.Module
-        The EMA class which maintains an exponential moving average of model parameters. In MixMatch the exponential
-        moving average parameters are used for model evaluation and for the reported results.
+        Discriminator model.
     train_loader: DataLoader
         Data loader fetching batches from the labeled set of data.
     optim_g: Optimizer
