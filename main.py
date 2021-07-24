@@ -10,7 +10,7 @@ from train import get_transform_dict, train
 from datasets.datasets import get_datasets
 from datasets.loaders import create_loaders
 from utils.train import model_init, set_grads
-from utils.misc import load_dataset_indices, save_dataset_indices, get_save_path, initialize_logger, seed
+from utils.misc import load_dataset_indices, save_dataset_indices, get_save_path, initialize_logger, seed, save_args
 from models.model_factory import MODEL_GETTERS
 
 
@@ -74,6 +74,7 @@ def main(args, save_path: str):
         writer,
         save_path=save_path
     )
+    save_args(args, save_path)
 
 
 if __name__ == '__main__':

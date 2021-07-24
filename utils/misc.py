@@ -4,6 +4,7 @@ import json
 import random
 import logging
 from typing import Dict, Union, Optional
+from types import SimpleNamespace
 
 import torch
 import numpy as np
@@ -115,3 +116,8 @@ def load_state(path: str, map_location=None):
         "Loaded state from {} saved at epoch {}".format(path, loaded_state["epoch"])
     )
     return loaded_state
+
+
+def load_args(run_path):
+    run_args = json.load(open(os.path.join(run_path, "args.json")))
+    return SimpleNamespace(**run_args)
