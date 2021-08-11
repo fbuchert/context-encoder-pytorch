@@ -1,5 +1,5 @@
 # PyTorch Implementation: Context Encoder
-![License](https://img.shields.io/github/license/fbuchert/context-encoder-pytorch?label=license)
+![License](https://img.shields.io/github/license/fbuchert/context-encoder-pytorch)
 
 PyTorch implementation of [Context Encoders: Feature Learning by Inpainting
 ](https://arxiv.org/abs/1604.07379) based on the [official lua implementation](https://github.com/pathak22/context-encoder).
